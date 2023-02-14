@@ -1,0 +1,16 @@
+Rebase : Rebase is used for rewriting the history on top the base branch.
+
+
+develop   M1 M2 M3 M4 M5 M6 M7 M8
+ 
+ | develop> git rebase feature
+ 
+feature  M1 M2 M3 M4 M5 M6 M7 M8
+=============================================
+master > git branch  
+master > git branch develop
+master > git checkout develop
+develop > touch file1.txt 
+develop > git add/git commit 
+develop > git checkout master
+master > git rebase develop
