@@ -1,0 +1,630 @@
+GIT Overview 
+What is VCS?
+Benefits of VCS
+Types of VCS
+Git Architecture
+Installation of Git
+Basic Commands
+GitHub Account creation
+Branches & Branching Strategy
+Merge and Rebase
+Cherrypick
+Stash Techniques
+Git Tagging
+=============================================================
+Advanced Commands - remote repos interaction (clone, push, pull, remotes, rm , clean)
+Fork mechanism
+Pull Request
+Github Administration
+  * Branch protection
+  * Collabrators
+  * Git and Github Integration (httpd , ssh)
+=============================================================
+
+=============================================================================================
+DAY-1
+=============================================================================================================
+GIT Overview
+=============================================================================================================
+GIT : Global Interaction Tool/Global Tracking system
+
+Git is distributed version control system which helps in tracking the complete system and complete changes along with benefit of memory optimization.
+
+===================================================================================================
+why GIT? 
+===============================================================================================
+What is VCS(Version control system)? -> Managing some version or unique id's
+(commit id - hexa decimal number - hxhdhdks4nsdj5nssjnzjdjd (SHA key 125/255) )
+
+=========================================================================================
+why VCS ?
+=================================================================================
+1. Tracking the changes
+2. Memory optimization
+
+1. Tracking : Tracking the system or file/folder/code/scripts etc here we get to know below things
+-> Who modified -> user_name/Email
+-> which line/which word/which sentence is deleted/added/updated etc
+-> what time and date employee modified the file/folder etc.
+
+2. Memory optimization :
+
+orginal file = Project-record.txt
+
+DAY-1  => Project-record.txt(login feature) => 1 GB data ( working/stable file => commit_id(hxxaduabsdhbd) on this file and it will start recording the 
+changes.
+
+DAY-2 => Project-record.txt(logout feature) => 1 GB data + 500 GB = 1.5 GB  => commit_id(ndjdjsjjsjnnajs) on this file and it will record changes
+
+DAY-3 => Project-record.txt(logout feature) => 1 GB data + 500 GB = 1.5 GB  =>
+
+DAY-4 => Project-record.txt(logout feature) => 1 GB data + 500 GB = 1.5 GB  =>
+
+
+==========================================================================================================================
+Without VCS:
+=====================================================================================
+Linux/Windows : configuration 20 GB disk
+cost optimization.
+
+Windows/Linux : We can get who modified (user name) , last modified date and time, size of that file/direction.
+-> There is no proper tracking , bec we dont have info which line, which word , which sentence is modified(added/delete/append).
+
+
+DAY-1 => Project-record.txt(login page feature) -> 1 GB data  ( working file, stable file where all the code/script are in working condition)
+
+backup_day_1 = > backup_Project-record.txt_12-12-2022 -> 1 GB data 
+
+DAY-2 => Project-record.txt(logout page feature) -> 1 GB data + 500 MB = 1.5 GB  ( working file, stable file where all the code/script are in working condition)
+
+backup_day_2 = > backup_Project-record.txt_13-12-2022 -> 1.5 GB data 
+
+DAY-3 => Project-record.txt(Main page of products) => 1.5 GB + 5 GB = 6.5 GB ....
+==============================================================================================================
+Types of VCS:
+=======================================================================================================
+1. Centralized Version control system
+2. Distributed version control system
+==============================================================================
+1. Centralized VCS - Clearcase/SVN
+
+->  Internet is must  to connect to main/central server
+->  Original file is accessed and modified
+->  parallely users cannot work bec files will have lock on it when some users edit that file untill they save that file.
+->   License cost
+->  some one deletes that file, we lost the content.
+
+
+2. Distributed VCS - Git/Github, Bitbucket
+->  Internet is required to download and upload only to connect to main/central server, people can work offline for editing files.
+->  Original file is downloaded and modified.
+->  Parallely people work, bec they are download copy in local
+->   No License cost,open source( subscription)
+->  some one deletes that file in local, we dont have any impact on main server.
+
+=================================================================================
+Git Architecture
+==================================================
+
+Git -> Command line tool -> used only work in local system - specific to user.
+Github -> Remote repository -> all the actual code is stored( server which stores your code) -> SAAS
+
+
+Git : Local - CLI tools-
+
+Github :  Remote/central -> GUI Graphical user interface -> button system
+
+Working directory -> When you create/edit files -> untracked files
+
+Staging area -> you bring file to tracking at staging area
+
+local repo -> commit changes for recording it
+
+remotre repo -> Main remote repo where all our changes are stored for collabration 
+
+============================================================================================================
+DAY-2
+===================================================================================
+Installation of Git
+============================================================================
+Basic Commands :
+=================================================================
+1. Git Version :
+
+[root@ip-172-31-5-144 ~]# git --version
+git version 2.31.1
+[root@ip-172-31-5-144 ~]#
+=======================================================================================
+2. git init  -> Initiating a repository or creating an repository
+
+Repository -> Repository is nothing an folder but with additional mechanism or features.
+[root@ip-172-31-5-144 devops-acitivties]#  git init  
+Initialized empty Git repository in /root/devops-acitivties/.git/
+[root@ip-172-31-5-144 devops-acitivties]#
+=====================================================================================
+
+3.git config : Configuration of git like username, email , user workspace modification.
+
+git config --list
+git config user.name "trainer"
+git config user.email "devopscloudtrainer2022@gmail.com"
+===========================================================================================
+vi file1.txt
+content ...
+:wq!
+
+4 . git add : Used for bringing the file from non tracking to tracking.
+
+git add file_name (single file)
+git add . ( single/multiples files)
+
+eg : git add file1 file2
+eg : git add . (multiples files/folders)
+
+[root@ip-172-31-5-144 devops-work]# git add .
+[root@ip-172-31-5-144 devops-work]# git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   file.txt
+
+[root@ip-172-31-5-144 devops-work]#
+===========================================================
+5. git status  : This will inform you where are currently located/ current status of changes/files/folder or current activity.
+
+[root@ip-172-31-5-144 devops-work]# git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+[root@ip-172-31-5-144 devops-work]#
+
+===============================================================================================
+6. git log :  This will list all your commits recording.
+
+git log  --> list all commits
+git log -n(digit) 
+  eg : git log -n2 (latest 2 commits )
+
+git log --oneline (formatted output)
+
+[root@ip-172-31-5-144 devops-work]#
+[root@ip-172-31-5-144 devops-work]# git log
+commit 3bec2b370de88dd908a3f987477ae1bddbcf9193 (HEAD -> master)
+Author: trainer <devopscloudtrainer2022@gmail.com>
+Date:   Tue Feb 7 15:21:28 2023 +0000
+
+    First commit on Repository
+[root@ip-172-31-5-144 devops-work]#
+[root@ip-172-31-5-144 devops-work]# git log -n1
+commit 3bec2b370de88dd908a3f987477ae1bddbcf9193 (HEAD -> master)
+Author: trainer <devopscloudtrainer2022@gmail.com>
+Date:   Tue Feb 7 15:21:28 2023 +0000
+
+    First commit on Repository
+[root@ip-172-31-5-144 devops-work]# git log --oneline
+3bec2b3 (HEAD -> master) First commit on Repository
+[root@ip-172-31-5-144 devops-work]#
+
+======================================================================
+7.  git commit  -> Commit is used for recording the changes.
+
+command : git commit -m "Messages"
+
+[root@ip-172-31-5-144 devops-work]# git commit -m "First commit on Repository"
+[master (root-commit) 3bec2b3] First commit on Repository
+ 1 file changed, 18 insertions(+)
+ create mode 100644 file.txt
+[root@ip-172-31-5-144 devops-work]#
+==============================================================================
+8. git show -> display deleted output of commit recorded.
+
+[root@ip-172-31-5-144 devops-work]# git show 3bec2b370de88dd908a3f987477ae1bddbcf9193
+commit 3bec2b370de88dd908a3f987477ae1bddbcf9193 (HEAD -> master)
+Author: trainer <devopscloudtrainer2022@gmail.com>
+Date:   Tue Feb 7 15:21:28 2023 +0000
+
+    First commit on Repository
+
+diff --git a/file.txt b/file.txt
+new file mode 100644
+index 0000000..f17eec9
+--- /dev/null
++++ b/file.txt
+@@ -0,0 +1,18 @@
+
+GIT Overview 
++What is VCS?
++Benefits of VCS
++Types of VCS
++Git Architecture
++Installation of Git
++Basic Commands
++GitHub Account creation
++Github Administration
++  * Branch protection
++  * Collabrators
++  * Git and Github Integration
++Branches & Branching Strategy
++Git Tagging
++Merge and Rebase
++Advanced Commands
++Cherrypick
++Stash Techniques
+(END)
+==============================================================================================================
+How to unstage a file ( tracking -> non tracking)   -> deleted mode on new file.
+
+git rm --cached <file>
+
+===========================================================================
+how to unstage a file : git restore ( tracking -> non tracking)
+====================================================================
+---> After adding files to staging area ->
+now if we want to go  back to working directory then use below command:
+
+(use "git restore <file>..." to discard changes in working directory)
+
+[root@ip-172-31-5-144 devops-work]# git restore --staged file.txt
+[root@ip-172-31-5-144 devops-work]# git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@ip-172-31-5-144 devops-work]#
+
+==================================================================
+
+git commit -a -m "messages"  --> add and commit in single commit.
+=========================================================================
+DAY-3
+====================================================================================================
+Branches & Branching Strategy:
+======================================================================================================
+
+Branches are nothing but an folder/directory in github/git which allow you to add file/directories/images etc
+Branches are very cheap, you can create and easily delete branches.
+Branches doesnt utiltize much space on server.
+
+eg : Ecommerce website :
+
+1. Login feature 3
+2. cart checkout 2 
+3 .logout feature 2
+4. payment feature 3
+
+Developers working on it.....
+
+Single folder -> Shopping-Ecommerce-website 
+                10 developers -> create files/make commits /keeping editing files/commits
+                -> Filenames created with same name.
+                -> commits conflicts.
+
+common branch ->  Shopping-Ecommerce-website  --> all files/āll commits -> revert the login features ( extract effort), you might end with issues.
+
+
+Create an branch -> you can work on specific feature -> unqiue files/folders/images -> commits.
+           -> Reusability of code  ===> Insurance, banking.
+           -> less effort in rewriting code
+           -> Uniquiness of maintaining the feature wise code.
+           -> Feature is not working -> delete branch itself.
+            -> commmits will be unique
+
+
+
+ 
+==============================================
+Tree ( repository)
+ |
+Branches (branch) -> leaves  (files)
+                  -> fruits (directories)
+ |
+
+Sub branches  -> leaves
+  |
+ sub branches
+========================================================
+
+Branches strategies :
+========================================================================================================================
+
+Repository - Facebook-code
+               |
+             login branch  logout branch  Automation-script 
+                                              |
+                                         Shell scripts/ansible playbooks /Dockerfile/kubernetes yamls/ Document-procedures 
+
+
+Any project/company having repository should have below branches:
+
+master/main  -> by default 
+  |
+develop    -> development activities ( combine all features branches here )
+  |
+      ---->  feature -> feature wise branches
+  |
+release -> final code is built for product deleivery for launching webiste
+
+
+
+==========================================================================================================================
+
+git branch   --> list the branches 
+git branch branch_name  ---> create a branch
+git branch -d branch_name ---> delete a branch
+git checkout branch_name -> switch to the branch ( cd folder/)
+git checkout -b branch_name -> create and switch branch
+git branch -D branch_name -> delete an branch forcefully
+
+Note : We cannot delete branches ,when you are already on that branch
+
+==================================================================================
+DAY-4
+===================================================================================
+Stash Techniques
+===================================================================================
+Stash is used for storing the changes in temporary location.
+
+eg :
+Let suppose, we are working on develop branch, edit few files and added it to staging area.
+Now suddenly, we got new requirement for some urgent feature development, now I have to create an new branch for feature and switch to that branch.
+But git says, switching a branch is not possible when files are in working directory/staging index.
+Either you rollback the changes or complete your changes.
+
+Stash comes into picture, where stash allows us to store the incomplete work in temporary location and now we can easily switch branch.
+
+Commands:
+
+git stash list ==> list all the stashes
+git stash show stash_name ==> describe the stash
+git stash save "some message" -> this will store all the chanages into git stages to stash
+git stash apply stash_name -> It will bring back the changes from stash and keep one copy in stash
+git stash pop stash_name -> It will bring back the changes from stash and also it will remove from stash
+git stash drop -> Will remove all stashes from stash location.
+
+============================================================================================================
+Merge and Rebase
+=========================================================================================
+Merge: Merge is used for combining the commits from one branch to another branch. 
+       Merge will create one merge commit( extra commit is created - M6 M7 M8 M9 
+
+
+Master      M1 M2 M3 M4 M5 M6 
+ 
+  | master > git merge develop ( commit -id along file.txt)
+
+develop     M1 M2 M3 M4 M5 M6(commit id -> vi file.txt -> git add . -> git commit -m "adding")
+
+================================================
+Types of Merges :
+======================================================
+Fast forward merge 
+================================================
+
+master      M1 M2 M3 M4 M5 M6 M7 M8 M9 MC
+
+  | master> git merge develop
+
+develop     M1 M2 M3 M4 M5 M6 M7 M8 M9
+
+===============================================
+Non Fast forward merge
+================================================
+
+Master      M1 M2 M3 M4 M5 M6 M7 MC
+
+  | master> git merge develop
+
+develop     M1 M2 M3 M4 M5 M6  
+
+===============================================
+nano editor :
+===============================================
+By default its in write -> once text is entered
+esc button
+ctrl o  --> together press buttons  ->save
+ctrl x  --> together press buttons  -> exit
+
+=================================================================
+master > git branch  
+master > git branch develop
+master > git checkout develop
+develop > touch file1.txt 
+develop > git add/git commit 
+develop > git checkout master
+master > git merge develop
+============================================================
+Rebase : Rebase is used for rewriting the history on top the base branch.
+
+
+develop   M1 M2 M3 M4 M5 M6 M7 M8
+ 
+ | develop> git rebase feature
+ 
+feature  M1 M2 M3 M4 M5 M6 M7 M8
+=============================================
+master > git branch  
+master > git branch develop
+master > git checkout develop
+develop > touch file1.txt 
+develop > git add/git commit 
+develop > git checkout master
+master > git rebase develop
+===================================================================================
+Cherrypick
+===================================================================================
+cherry-pick is used for picking up one commit from one branch and put it in another branch.
+
+Eg :
+
+develop  M1 M2 M3 M6
+
+ | develop > git cherry-pick M6
+
+feature M1 M2 M3 M4 M5 M6 
+
+
+master > git cherry-pick commit_id
+===============================================================================================
+DAY-5
+===============================================================================================
+Tag: Tag is checkpoint to mark any commit as important release point or mention it as stable point of code.
+
+eg : 1.0, 2.0
+release-2.0, hotfix-1.0, 
+release-silicon-5.0
+
+
+Master 
+eg : M1 M2 M3 M4 M5 M6 M7(T) M8 M9 M10 M11 M12 M13
+                  
+              
+Command :
+git tag --> list all tags 
+git tag -l --> list all tags 
+git tag -a tag_name --> Create new tag ( normal tags)
+git tag -a tag_name -m "message" -> Create new tag with message(annotated tags)
+git tag -a tag_name commit_id  -> create tag and point to commit_id
+git tag  tag_name commit_id -> existing  tag will be assigned the commit Id
+git tag -f tag_name commit_id  -> force tagging to commit_id
+git tag -d tag_name -> delete an tag
+
+Options :
+
+-m  message
+-f force
+-a annotate
+-l list
+-d delete
+===============================================================================
+Advanced commands:
+==============================================================================
+Push a tag to Github :
+
+git push -f origin --tags --> push the tags to github account from local repo
+git pull -f origin --tags --> pull the tags from github account to local repo4
+
+========================================================================================
+Advanced commands:
+========================================================================
+1. clone : Clone is used for downloading the entire repository(files/folders/commit-id,tags) from remote to local workspace.
+
+command : git clone <URL>
+
+
+Clone : SSH clone  -> ssh key ( passwordless connection) -> ssh-keygen -t rsa
+        httpd clone  -> user and password(token)
+
+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
+
+===========================================================================================================
+2. Push : Push is used for pushing the changes from local to remote repo.
+
+changes : commit_id/tags --> associated with your files/folders
+
+command : git push origin branch_name
+origin - short name for Remote URL
+========================================================================
+3. Pull : Pull is used to download the updated changes in that repository in particular branch or in all branches.
+
+changes :  commit_id/tags --> associated with your files/folders
+
+command : git pull  origin branch_name
+
+git pull = git fetch + git merge
+========================================================================================================
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$ git fetch origin main
+From https://github.com/trainercloud2023/devops-project
+ * branch            main       -> FETCH_HEAD
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$ git checkout -b develop origin/main
+Branch 'develop' set up to track remote branch 'main' from 'origin'.
+Switched to a new branch 'develop'
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$
+
+==============================================================================================
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$ git pull origin main
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 877 bytes | 877.00 KiB/s, done.
+From https://github.com/trainercloud2023/devops-project
+ * branch            main       -> FETCH_HEAD
+   fed0ee9..4f5b191  main       -> origin/main
+Updating fed0ee9..4f5b191
+Fast-forward
+ File-2.txt | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+ create mode 100644 File-2.txt
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$
+=================================================================================================
+
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$ git fetch origin main
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 644 bytes | 644.00 KiB/s, done.
+From https://github.com/trainercloud2023/devops-project
+ * branch            main       -> FETCH_HEAD
+   181a5ba..25835eb  main       -> origin/main
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$ 
+
+==========================================================================================
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$ git merge origin/main
+Updating 181a5ba..25835eb
+Fast-forward
+ file-3.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file-3.txt
+devopscloudtrainer2023@cloudshell:~/devops-online-7.30/devops-project$
+
+=============================================================================================
+Fork mechanism :
+============================================================================================
+
+A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
